@@ -5,6 +5,8 @@ import com.peliculas.model.Genero;
 import com.peliculas.model.Pelicula;
 
 import static org.hamcrest.CoreMatchers.*;
+
+import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertThat;
@@ -20,8 +22,10 @@ import java.util.stream.Collectors;
  */
 public class PeliculaServiceTest {
 
-    @Test
-    public void deberia_retornar_peliculas_por_genero() {
+    private PeliculaService peliculaService;
+
+    @Before
+    public void setup() {
         PeliculaRepository peliculaRepository = mock(PeliculaRepository.class);
         when(peliculaRepository.findAll()).thenReturn(Arrays.asList(
             new Pelicula(1, "Dark Knight", 152, Genero.ACCION),
@@ -32,11 +36,23 @@ public class PeliculaServiceTest {
             new Pelicula(6, "Home Alone", 103, Genero.COMEDIA),
             new Pelicula(7, "Matrix", 136, Genero.ACCION)
         ));
-        PeliculaService peliculaService = new PeliculaService(peliculaRepository);
-        Collection<Pelicula> peliculas = peliculaService.findByGenero(Genero.COMEDIA);
+        peliculaService = new PeliculaService(peliculaRepository);
+    }
 
-        List<Integer> pelisId = peliculas.stream().map(pelicula -> pelicula.getId()).collect(Collectors.toList());
-        assertThat(pelisId, is(Arrays.asList(3, 6)));
+    @Test
+    public void deberia_retornar_peliculas_por_genero() {
+        Collection<Pelicula> peliculas = peliculaService.findByGenero(Genero.COMEDIA);
+        assertThat(getPeliculasIds(peliculas), is(Arrays.asList(3, 6)));
+    }
+
+    @Test
+    public void deberia_retornar_peliculas_por_duracion() {
+        Collection<Pelicula> peliculas = peliculaService.findByDuracionHasta(112);
+        assertThat(getPeliculasIds(peliculas), is(Arrays.asList(4, 5, 6)));
+    }
+
+    private List<Integer> getPeliculasIds(Collection<Pelicula> peliculas) {
+        return peliculas.stream().map(Pelicula::getId).collect(Collectors.toList());
     }
 
 }

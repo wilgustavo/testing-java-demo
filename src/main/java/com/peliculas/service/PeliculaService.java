@@ -23,6 +23,9 @@ public class PeliculaService {
             .filter(peli -> peli.getGenero() == genero).collect(Collectors.toList());
 	}
 
-
+	public Collection<Pelicula> findByDuracionHasta(int minutos) {
+        return peliculaRepository.findAll().stream()
+            .filter(peli -> peli.getMinutos() <= minutos).collect(Collectors.toList());
+	}
 
 }
