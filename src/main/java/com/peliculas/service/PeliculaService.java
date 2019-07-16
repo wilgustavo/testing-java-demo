@@ -7,6 +7,7 @@ import com.peliculas.data.PeliculaRepository;
 import com.peliculas.model.Genero;
 import com.peliculas.model.Pelicula;
 
+// TODO: Auto-generated Javadoc
 /**
  * PeliculaService.
  */
@@ -53,13 +54,30 @@ public class PeliculaService {
 	 * @return the collection
 	 */
 	public Collection<Pelicula> findByNombre(String busqueda) {
-		return peliculaRepository.findAll().stream()
-				.filter(peli -> contieneNombre(busqueda, peli))
+		return peliculaRepository.findAll().stream().filter(peli -> contieneNombre(busqueda, peli.getNombre()))
 				.collect(Collectors.toList());
 	}
 
-	private boolean contieneNombre(String busqueda, Pelicula peli) {
-		return peli.getNombre().toUpperCase().contains(busqueda.toUpperCase());
+	/**
+	 * Find by director.
+	 *
+	 * @param string the string
+	 * @return the collection
+	 */
+	public Collection<Pelicula> findByDirector(String busqueda) {
+		return peliculaRepository.findAll().stream().filter(peli -> contieneNombre(busqueda, peli.getDirector()))
+				.collect(Collectors.toList());
+	}
+
+	/**
+	 * Contiene nombre.
+	 *
+	 * @param busqueda the busqueda
+	 * @param peli     the peli
+	 * @return true, if successful
+	 */
+	private boolean contieneNombre(String busqueda, String nombre) {
+		return nombre.toUpperCase().contains(busqueda.toUpperCase());
 	}
 
 }

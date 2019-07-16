@@ -39,25 +39,25 @@ public class PeliculaRepositoryIntegrationTest {
     
     @Test
     public void deberia_insertar_una_pelicula() {
-    	peliculaRepository.saveOrUpdate(new Pelicula("Super 8", 112, Genero.DRAMA));
+    	peliculaRepository.saveOrUpdate(new Pelicula("Super 8", 112, Genero.DRAMA, "J. J. Abrams"));
     	Pelicula nuevaPelicula = peliculaRepository.findById(4);
-    	assertThat(nuevaPelicula, is(new Pelicula(4, "Super 8", 112, Genero.DRAMA)));
+    	assertThat(nuevaPelicula, is(new Pelicula(4, "Super 8", 112, Genero.DRAMA, "J. J. Abrams")));
     }
 
     
     @Test
     public void deberia_retornar_una_pelicula_por_id() {
 		Pelicula pelicula = peliculaRepository.findById(2);
-		assertThat(pelicula, is(new Pelicula(2, "Memento", 113, Genero.DRAMA)));
+		assertThat(pelicula, is(new Pelicula(2, "Memento", 113, Genero.DRAMA, "Christopher Nolan")));
 	}
     
     @Test
     public void deberia_retornar_todas_las_peliculas()  {
         Collection<Pelicula> pelis =  peliculaRepository.findAll();
         assertThat(pelis, is(Arrays.asList(
-            new Pelicula(1, "Dark Knight", 152, Genero.ACCION) ,
-            new Pelicula(2, "Memento", 113, Genero.DRAMA) ,
-            new Pelicula(3, "Matrix", 136, Genero.ACCION)
+            new Pelicula(1, "Dark Knight", 152, Genero.ACCION, "Christopher Nolan") ,
+            new Pelicula(2, "Memento", 113, Genero.DRAMA, "Christopher Nolan") ,
+            new Pelicula(3, "Matrix", 136, Genero.ACCION, "Wachowski brothers")
         )));
     }
     
