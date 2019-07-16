@@ -50,6 +50,12 @@ public class PeliculaServiceTest {
         Collection<Pelicula> peliculas = peliculaService.findByDuracionHasta(112);
         assertThat(getPeliculasIds(peliculas), is(Arrays.asList(4, 5, 6)));
     }
+    
+    @Test
+    public void deberia_buscar_peliculas_por_nombre() {
+    	Collection<Pelicula> peliculas =  peliculaService.findByNombre("Re");
+    	assertThat(getPeliculasIds(peliculas), is(Arrays.asList(3, 5)));
+	}
 
     private List<Integer> getPeliculasIds(Collection<Pelicula> peliculas) {
         return peliculas.stream().map(Pelicula::getId).collect(Collectors.toList());
