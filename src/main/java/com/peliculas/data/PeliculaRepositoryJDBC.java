@@ -22,7 +22,7 @@ public class PeliculaRepositoryJDBC implements PeliculaRepository {
 
     @Override
     public Pelicula findById(long id) {
-        return null;
+        return jdbcTemplate.queryForObject("select * from pelicula where id = ?", peliculaMapper, id);
     }
 
     @Override
@@ -32,7 +32,7 @@ public class PeliculaRepositoryJDBC implements PeliculaRepository {
 
     @Override
     public void saveOrUpdate(Pelicula pelicula) {
-
+    	jdbcTemplate.update("insert into pelicula (nombre, minutos, genero) values (?, ?, ?)", pelicula.getNombre(), pelicula.getMinutos(), pelicula.getGenero().toString());
     }
 
     private static RowMapper<Pelicula> peliculaMapper = (ResultSet rs, int rowNum) ->

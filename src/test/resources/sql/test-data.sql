@@ -1,4 +1,6 @@
-create table if not exists pelicula ( 
+drop table if exists pelicula;
+
+create table pelicula ( 
   id int auto_increment primary key, 
   nombre varchar(50) not null,
   minutos int not null,

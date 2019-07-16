@@ -36,7 +36,21 @@ public class PeliculaRepositoryIntegrationTest {
         ScriptUtils.executeSqlScript(dataSource.getConnection(), new ClassPathResource("sql\\test-data.sql"));
         peliculaRepository = new PeliculaRepositoryJDBC(jdbcTemplate);
     }
+    
+    @Test
+    public void deberia_insertar_una_pelicula() {
+    	peliculaRepository.saveOrUpdate(new Pelicula("Super 8", 112, Genero.DRAMA));
+    	Pelicula nuevaPelicula = peliculaRepository.findById(4);
+    	assertThat(nuevaPelicula, is(new Pelicula(4, "Super 8", 112, Genero.DRAMA)));
+    }
 
+    
+    @Test
+    public void deberia_retornar_una_pelicula_por_id() {
+		Pelicula pelicula = peliculaRepository.findById(2);
+		assertThat(pelicula, is(new Pelicula(2, "Memento", 113, Genero.DRAMA)));
+	}
+    
     @Test
     public void deberia_retornar_todas_las_peliculas()  {
         Collection<Pelicula> pelis =  peliculaRepository.findAll();
@@ -46,4 +60,5 @@ public class PeliculaRepositoryIntegrationTest {
             new Pelicula(3, "Matrix", 136, Genero.ACCION)
         )));
     }
+    
 }
