@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 import com.peliculas.data.PeliculaRepository;
 import com.peliculas.model.Genero;
 import com.peliculas.model.Pelicula;
+import com.peliculas.utils.StringCompare;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -54,7 +55,7 @@ public class PeliculaService {
 	 * @return the collection
 	 */
 	public Collection<Pelicula> findByNombre(String busqueda) {
-		return peliculaRepository.findAll().stream().filter(peli -> contieneNombre(busqueda, peli.getNombre()))
+		return peliculaRepository.findAll().stream().filter(peli -> StringCompare.contieneIngoreCase(busqueda, peli.getNombre()))
 				.collect(Collectors.toList());
 	}
 
@@ -65,19 +66,13 @@ public class PeliculaService {
 	 * @return the collection
 	 */
 	public Collection<Pelicula> findByDirector(String busqueda) {
-		return peliculaRepository.findAll().stream().filter(peli -> contieneNombre(busqueda, peli.getDirector()))
+		return peliculaRepository.findAll().stream().filter(peli -> StringCompare.contieneIngoreCase(busqueda, peli.getDirector()))
 				.collect(Collectors.toList());
 	}
 
-	/**
-	 * Contiene nombre.
-	 *
-	 * @param busqueda the busqueda
-	 * @param peli     the peli
-	 * @return true, if successful
-	 */
-	private boolean contieneNombre(String busqueda, String nombre) {
-		return nombre.toUpperCase().contains(busqueda.toUpperCase());
+	public Collection<Pelicula> findByPlantilla(Pelicula plantilla) {
+		return peliculaRepository.findAll().stream().filter(peli -> peli.matchPlantilla(plantilla))
+				.collect(Collectors.toList());
 	}
 
 }

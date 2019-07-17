@@ -1,62 +1,60 @@
 package com.peliculas.model;
 
+import com.peliculas.utils.StringCompare;
+
 /**
  * Pelicula
  */
 public class Pelicula {
 
-    private Integer id;
-    private String nombre;
-    private int minutos;
-    private Genero genero;
-    private String director;
+	private Integer id;
+	private String nombre;
+	private Integer minutos;
+	private Genero genero;
+	private String director;
 
-    public Pelicula(String nombre, int minutos, Genero genero, String director) {
-        this(null, nombre, minutos, genero, director);
-    }
+	public Pelicula(String nombre, Integer minutos, Genero genero, String director) {
+		this(null, nombre, minutos, genero, director);
+	}
 
-    public Pelicula(Integer id, String nombre, int minutos, Genero genero, String director) {
-        this.id = id;
-        this.nombre = nombre;
-        this.minutos = minutos;
-        this.genero = genero;
-        this.setDirector(director);
-    }
+	public Pelicula(Integer id, String nombre, Integer minutos, Genero genero, String director) {
+		this.id = id;
+		this.nombre = nombre;
+		this.minutos = minutos;
+		this.genero = genero;
+		this.director = director;
+	}
 
-    /**
-     * @return the id
-     */
-    public Integer getId() {
-        return id;
-    }
+	/**
+	 * @return the id
+	 */
+	public Integer getId() {
+		return id;
+	}
 
-    /**
-     * @return the nombre
-     */
-    public String getNombre() {
-        return nombre;
-    }
+	/**
+	 * @return the nombre
+	 */
+	public String getNombre() {
+		return nombre;
+	}
 
-    /**
-     * @return the minutos
-     */
-    public int getMinutos() {
-        return minutos;
-    }
+	/**
+	 * @return the minutos
+	 */
+	public Integer getMinutos() {
+		return minutos;
+	}
 
-    /**
-     * @return the genero
-     */
-    public Genero getGenero() {
-        return genero;
-    }
+	/**
+	 * @return the genero
+	 */
+	public Genero getGenero() {
+		return genero;
+	}
 
 	public String getDirector() {
 		return director;
-	}
-
-	public void setDirector(String director) {
-		this.director = director;
 	}
 
 	@Override
@@ -69,6 +67,23 @@ public class Pelicula {
 		result = prime * result + minutos;
 		result = prime * result + ((nombre == null) ? 0 : nombre.hashCode());
 		return result;
+	}
+
+	public boolean matchPlantilla(Pelicula plantilla) {
+		if (plantilla.director != null && !StringCompare.contieneIngoreCase(plantilla.director, director)) {
+			return false;
+		}
+		if (plantilla.nombre != null && !StringCompare.contieneIngoreCase(plantilla.nombre, nombre)) {
+			return false;
+		}
+		if (plantilla.minutos != null && plantilla.minutos < minutos) {
+			return false;
+		}
+		if (plantilla.genero != null && !plantilla.genero.equals(genero)) {
+			return false;
+		}
+			
+		return true;
 	}
 
 	@Override

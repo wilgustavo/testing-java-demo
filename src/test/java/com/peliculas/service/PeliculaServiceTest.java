@@ -62,6 +62,15 @@ public class PeliculaServiceTest {
     	Collection<Pelicula> peliculas = peliculaService.findByDirector("nolan");
     	assertThat(getPeliculasIds(peliculas), is(Arrays.asList(1, 2)));
     }
+    
+    @Test
+    public void deberia_buscar_peliculas_por_plantilla() {
+    	Collection<Pelicula> peliculas = peliculaService.findByPlantilla(new Pelicula("re", 119, null, null));
+    	assertThat(getPeliculasIds(peliculas), is(Arrays.asList(3, 5)));
+   
+    	peliculas = peliculaService.findByPlantilla(new Pelicula(null, null, Genero.ACCION, "nolan"));
+    	assertThat(getPeliculasIds(peliculas), is(Arrays.asList(1)));
+    }
 
     private List<Integer> getPeliculasIds(Collection<Pelicula> peliculas) {
         return peliculas.stream().map(Pelicula::getId).collect(Collectors.toList());
