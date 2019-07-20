@@ -57,17 +57,6 @@ public class Pelicula {
 		return director;
 	}
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((director == null) ? 0 : director.hashCode());
-		result = prime * result + ((genero == null) ? 0 : genero.hashCode());
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + minutos;
-		result = prime * result + ((nombre == null) ? 0 : nombre.hashCode());
-		return result;
-	}
 
 	public boolean matchPlantilla(Pelicula plantilla) {
 		if (plantilla.director != null && !StringCompare.contieneIngoreCase(plantilla.director, director)) {
@@ -86,41 +75,56 @@ public class Pelicula {
 		return true;
 	}
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Pelicula other = (Pelicula) obj;
-		if (director == null) {
-			if (other.director != null)
-				return false;
-		} else if (!director.equals(other.director))
-			return false;
-		if (genero != other.genero)
-			return false;
-		if (id == null) {
-			if (other.id != null)
-				return false;
-		} else if (!id.equals(other.id))
-			return false;
-		if (minutos != other.minutos)
-			return false;
-		if (nombre == null) {
-			if (other.nombre != null)
-				return false;
-		} else if (!nombre.equals(other.nombre))
-			return false;
-		return true;
-	}
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((director == null) ? 0 : director.hashCode());
+        result = prime * result + ((genero == null) ? 0 : genero.hashCode());
+        result = prime * result + ((id == null) ? 0 : id.hashCode());
+        result = prime * result + ((minutos == null) ? 0 : minutos.hashCode());
+        result = prime * result + ((nombre == null) ? 0 : nombre.hashCode());
+        return result;
+    }
 
-	@Override
-	public String toString() {
-		return "Pelicula [id=" + id + ", nombre=" + nombre + ", minutos=" + minutos + ", genero=" + genero
-				+ ", director=" + director + "]";
-	}
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Pelicula other = (Pelicula) obj;
+        if (director == null) {
+            if (other.director != null)
+                return false;
+        } else if (!director.equals(other.director))
+            return false;
+        if (genero != other.genero)
+            return false;
+        if (id == null) {
+            if (other.id != null)
+                return false;
+        } else if (!id.equals(other.id))
+            return false;
+        if (minutos == null) {
+            if (other.minutos != null)
+                return false;
+        } else if (!minutos.equals(other.minutos))
+            return false;
+        if (nombre == null) {
+            if (other.nombre != null)
+                return false;
+        } else if (!nombre.equals(other.nombre))
+            return false;
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "Pelicula [id=" + id + ", nombre=" + nombre + ", minutos=" + minutos + ", genero=" + genero
+                + ", director=" + director + "]";
+    }
 
 }
