@@ -1,15 +1,16 @@
 package com.peliculas.service;
 
+import static org.hamcrest.Matchers.*;
+import static org.hamcrest.MatcherAssert.*;
+
 import com.peliculas.data.PeliculaRepository;
 import com.peliculas.model.Genero;
 import com.peliculas.model.Pelicula;
 
-import static org.hamcrest.CoreMatchers.*;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.*;
 
 import java.util.Arrays;
@@ -24,8 +25,8 @@ public class PeliculaServiceTest {
 
     private PeliculaService peliculaService;
 
-    @Before
-    public void setup() {
+    @BeforeEach
+    void setup() {
         PeliculaRepository peliculaRepository = mock(PeliculaRepository.class);
         when(peliculaRepository.findAll()).thenReturn(Arrays.asList(
             new Pelicula(1, "Dark Knight", 152, Genero.ACCION, "Christopher Nolan"),
@@ -40,31 +41,31 @@ public class PeliculaServiceTest {
     }
 
     @Test
-    public void deberia_retornar_peliculas_por_genero() {
+    void deberia_retornar_peliculas_por_genero() {
         Collection<Pelicula> peliculas = peliculaService.findByGenero(Genero.COMEDIA);
         assertThat(getPeliculasIds(peliculas), is(Arrays.asList(3, 6)));
     }
 
     @Test
-    public void deberia_retornar_peliculas_por_duracion() {
+    void deberia_retornar_peliculas_por_duracion() {
         Collection<Pelicula> peliculas = peliculaService.findByDuracionHasta(112);
         assertThat(getPeliculasIds(peliculas), is(Arrays.asList(4, 5, 6)));
     }
     
     @Test
-    public void deberia_buscar_peliculas_por_nombre() {
+    void deberia_buscar_peliculas_por_nombre() {
     	Collection<Pelicula> peliculas =  peliculaService.findByNombre("Re");
     	assertThat(getPeliculasIds(peliculas), is(Arrays.asList(3, 5)));
 	}
     
     @Test
-    public void deberia_buscar_peliculas_por_director() {
+    void deberia_buscar_peliculas_por_director() {
     	Collection<Pelicula> peliculas = peliculaService.findByDirector("nolan");
     	assertThat(getPeliculasIds(peliculas), is(Arrays.asList(1, 2)));
     }
     
     @Test
-    public void deberia_buscar_peliculas_por_plantilla() {
+    void deberia_buscar_peliculas_por_plantilla() {
     	Collection<Pelicula> peliculas = peliculaService.findByPlantilla(new Pelicula("re", 119, null, null));
     	assertThat(getPeliculasIds(peliculas), is(Arrays.asList(3, 5)));
    
